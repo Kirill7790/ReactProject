@@ -1,0 +1,106 @@
+.phone-card {
+    background: var(--white-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+    position: relative;
+}
+
+.phone-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow-hover);
+}
+
+.phone-card.liked {
+    border: 2px solid var(--danger-color);
+}
+
+.phone-image {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    background: linear-gradient(45deg, #f3f3f3, #e0e0e0);
+}
+
+.phone-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.phone-card:hover .phone-image img {
+    transform: scale(1.05);
+}
+
+.phone-info {
+    padding: 20px;
+}
+
+.phone-name {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: var(--dark-color);
+    font-weight: 600;
+}
+
+.phone-specs {
+    margin: 15px 0;
+    font-size: 0.9rem;
+}
+
+.phone-specs p {
+    margin-bottom: 8px;
+    color: var(--gray-color);
+}
+
+.phone-specs strong {
+    color: var(--dark-color);
+    font-weight: 600;
+}
+
+.phone-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.like-button {
+    background: none;
+    border: 2px solid var(--danger-color);
+    color: var(--danger-color);
+    padding: 8px 20px;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    font-size: 0.9rem;
+}
+
+.like-button:hover,
+.like-button.liked {
+    background-color: var(--danger-color);
+    color: var(--white-color);
+}
+
+.price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.phone-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--warning-color);
+    color: var(--white-color);
+    padding: 5px 15px;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    box-shadow: var(--box-shadow);
+}
