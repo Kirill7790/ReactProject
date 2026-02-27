@@ -1,8 +1,10 @@
-.liked-section {
+.liked-section
+{
     margin-bottom: 40px;
 }
 
-.liked-section h2 {
+.liked-section h2
+{
     margin-bottom: 20px;
     color: var(--dark-color);
     font-size: 1.5rem;
@@ -11,7 +13,8 @@
     gap: 10px;
 }
 
-.liked-section h2 span {
+.liked-section h2 span
+{
     background: var(--danger-color);
     color: var(--white-color);
     padding: 5px 12px;
@@ -19,13 +22,15 @@
     font-size: 1rem;
 }
 
-.liked-grid {
+.liked-grid
+{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
 }
 
-.liked-mini-card {
+.liked-mini-card
+{
     background: var(--white-color);
     border-radius: var(--border-radius-sm);
     padding: 15px;
@@ -36,25 +41,79 @@
     transition: var(--transition);
 }
 
-.liked-mini-card:hover {
+.liked-mini-card:hover
+{
     transform: translateX(5px);
     box-shadow: var(--box-shadow-hover);
 }
 
-.liked-mini-card img {
+.liked-mini-card img
+{
     width: 50px;
     height: 50px;
     border-radius: var(--border-radius-sm);
     object-fit: cover;
 }
 
-.liked-mini-card h4 {
+.liked-mini-card h4
+{
     font-size: 0.9rem;
     margin-bottom: 5px;
 }
 
-.liked-mini-card p {
+.liked-mini-card p
+{
     font-size: 0.8rem;
     color: var(--primary-color);
     font-weight: 600;
+}
+
+.liked-section h2
+{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    color: var(--dark-color);
+}
+
+.liked-count
+{
+    background-color: var(--danger-color);
+    color: var(--white-color);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.liked-mini-info
+{
+    flex: 1;
+}
+
+.liked-mini-price
+{
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+@keyframes slideIn
+{
+    from
+    {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to
+    {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.liked-mini-card
+{
+    animation: slideIn 0.3s ease;
 }

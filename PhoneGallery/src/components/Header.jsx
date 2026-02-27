@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/header.css';
 
-const Header = ({ likedCount = 0 }) => {
+const Header = ({ likedCount = 0, onNavigate }) => {
+    const [activePage, setActivePage] = useState('Головна');
+
+    const handleNavClick = (page, e) => {
+        e.preventDefault();
+        setActivePage(page);
+        if (onNavigate)
+        {
+            onNavigate(page);
+        }
+    };
+
     return (
         <header className="header">
             <div className="container">
@@ -13,16 +24,42 @@ const Header = ({ likedCount = 0 }) => {
 
                     <nav>
                         <ul>
-                            <li><a href="#" className="active">Головна</a></li>
-                            <li><a href="#">Смартфони</a></li>
-                            <li><a href="#">Бренди</a></li>
+                            <li>
+                                <a
+                                    href="#"
+                                    className={activePage === 'Головна' ? 'active' : ''}
+                                    onClick={(e) => handleNavClick('Головна', e)}
+                                >
+                                    Головна
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    className={activePage === 'Смартфони' ? 'active' : ''}
+                                    onClick={(e) => handleNavClick('Смартфони', e)}
+                                >
+                                    Смартфони
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    className={activePage === 'Бренди' ? 'active' : ''}
+                                    onClick={(e) => handleNavClick('Бренди', e)}
+                                >
+                                    Бренди
+                                </a>
+                            </li>
                         </ul>
                     </nav>
 
                     <div className="liked-counter">
                         <span>❤️</span>
                         Обране
-                        <span>{likedCount}</span>
+                        <span className={likedCount > 0 ? 'has-likes' : ''}>
+              {likedCount}
+            </span>
                     </div>
                 </div>
             </div>

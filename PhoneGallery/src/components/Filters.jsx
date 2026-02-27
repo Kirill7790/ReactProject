@@ -1,29 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/filters.css';
 
-const Filters = () => {
+const Filters = ({ activeFilter, onFilterChange }) => {
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const filters = ['Всі', 'Apple', 'Samsung', 'Google', 'OnePlus', 'Xiaomi'];
+
+    const handleFilterClick = (filter) => {
+        onFilterChange(filter);
+    };
+
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        console.log('Searching for:', searchTerm);
+        // Тут буде логіка пошуку
+    };
+
     return (
         <section className="filters-section">
             <div className="container">
                 <div className="filters-container">
                     <div className="filter-group">
-                        <button className="filter-btn active">Всі</button>
-                        <button className="filter-btn">Apple</button>
-                        <button className="filter-btn">Samsung</button>
-                        <button className="filter-btn">Google</button>
-                        <button className="filter-btn">OnePlus</button>
-                        <button className="filter-btn">Xiaomi</button>
+                        {filters.map(filter => (
+                            <button
+                                key={filter}
+                                className={`filter-btn ${activeFilter === filter ? 'active' : ''}`}
+                                onClick={() => handleFilterClick(filter)}
+                            >
+                                {filter}
+                            </button>
+                        ))}
                     </div>
 
-                    <div className="search-box">
+                    <form className="search-box" onSubmit={handleSearchSubmit}>
                         <input
                             type="text"
                             placeholder="Пошук смартфонів..."
-                            value=""
-                            readOnly
+                            value={searchTerm}
+                            onChange={handleSearchChange}
                         />
-                        <button type="button">Пошук</button>
-                    </div>
+                        <button type="submit">Пошук</button>
+                    </form>
                 </div>
             </div>
         </section>

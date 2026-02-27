@@ -61,10 +61,34 @@ nav ul li a.active {
     box-shadow: var(--box-shadow);
 }
 
-.liked-counter span {
+.liked-counter span
+{
     background-color: var(--danger-color);
     color: var(--white-color);
     padding: 2px 8px;
     border-radius: 50%;
     font-size: 0.9rem;
+}
+
+.liked-counter span.has-likes
+{
+    background-color: var(--danger-color);
+    color: var(--white-color);
+    animation: pulse 0.3s ease;
+}
+
+@keyframes pulse
+{
+    0%
+    {
+        transform: scale(1);
+    }
+    50%
+    {
+        transform: scale(1.2);
+    }
+    100%
+    {
+        transform: scale(1);
+    }
 }
