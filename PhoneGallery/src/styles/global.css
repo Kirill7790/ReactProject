@@ -55,7 +55,6 @@ main {
     padding: 40px 0;
 }
 
-/* Стилі для скролу */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -71,4 +70,59 @@ main {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--secondary-color);
+}
+
+.phones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.no-phones-message {
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--white-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin: 40px 0;
+}
+
+.no-phones-message p {
+    font-size: 1.3rem;
+    color: var(--gray-color);
+    margin-bottom: 20px;
+}
+
+.reset-filter-btn {
+    background: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    padding: 12px 30px;
+    border-radius: var(--border-radius-sm);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.reset-filter-btn:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--box-shadow);
+}
+
+@media (max-width: 768px) {
+    .phones-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .no-phones-message {
+        padding: 40px 15px;
+    }
+
+    .no-phones-message p {
+        font-size: 1.1rem;
+    }
 }

@@ -69,3 +69,18 @@
 .search-box button:hover {
     background: var(--secondary-color);
 }
+
+.filter-btn.active {
+    background: var(--primary-color);
+    color: var(--white-color);
+    transform: scale(1.05);
+    box-shadow: var(--box-shadow);
+}
+
+.filter-btn {
+    transition: all 0.2s ease;
+}
+
+.filter-btn:active {
+    transform: scale(0.95);
+}

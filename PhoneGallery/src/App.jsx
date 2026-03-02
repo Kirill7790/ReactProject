@@ -22,9 +22,16 @@ function App() {
 
     const handleFilterChange = (filter) => {
         setActiveFilter(filter);
-        console.log(`Filter changed to: ${filter}`);
     };
 
+    const getFilteredPhones = () => {
+        if (activeFilter === 'Всі') {
+            return phones;
+        }
+        return phones.filter(phone => phone.brand === activeFilter);
+    };
+
+    const filteredPhones = getFilteredPhones();
     const likedPhones = phones.filter(phone => phone.isLiked);
 
     return (
@@ -54,20 +61,27 @@ function App() {
                         Флагманські смартфони
                     </h2>
 
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
-                        gap: '30px',
-                        marginTop: '20px'
-                    }}>
-                        {phones.map(phone => (
-                            <PhoneCard
-                                key={phone.id}
-                                phone={phone}
-                                onLike={handleLike}
-                            />
-                        ))}
-                    </div>
+                    {filteredPhones.length === 0 ? (
+                        <div className="no-phones-message">
+                            <p>Смартфонів цього бренду поки немає!</p>
+                            <button
+                                className="reset-filter-btn"
+                                onClick={() => setActiveFilter('Всі')}
+                            >
+                                Показати всі телефони
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="phones-grid">
+                            {filteredPhones.map(phone => (
+                                <PhoneCard
+                                    key={phone.id}
+                                    phone={phone}
+                                    onLike={handleLike}
+                                />
+                            ))}
+                        </div>
+                    )}
                 </section>
             </main>
 

@@ -17,7 +17,6 @@ const Filters = ({ activeFilter, onFilterChange }) => {
     const handleSearchSubmit = (e) => {
         e.preventDefault();
         console.log('Searching for:', searchTerm);
-        // Тут буде логіка пошуку
     };
 
     return (
