@@ -10,8 +10,17 @@ import { phonesData } from './data/phonesData';
 function App() {
     const [phones, setPhones] = useState(() => {
         const savedPhones = localStorage.getItem('phones');
-        return savedPhones ? JSON.parse(savedPhones) : phonesData;
+        if (savedPhones) {
+            try {
+                return JSON.parse(savedPhones);
+            } catch (error) {
+                console.error('Помилка при читанні даних:', error);
+                return phonesData;
+            }
+        }
+        return phonesData;
     });
+
     const [activeFilter, setActiveFilter] = useState('Всі');
     const [isFormOpen, setIsFormOpen] = useState(false);
 
