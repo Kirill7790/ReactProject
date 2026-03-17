@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Filters from './components/Filters';
 import PhoneCard from './components/PhoneCard';
 import LikedPhones from './components/LikedPhones';
+import AddPhoneForm from './components/AddPhoneForm';
 import { phonesData } from './data/phonesData';
 
 function App() {
-    const [phones, setPhones] = useState(phonesData);
+    const [phones, setPhones] = useState(() => {
+        const savedPhones = localStorage.getItem('phones');
+        return savedPhones ? JSON.parse(savedPhones) : phonesData;
+    });
     const [activeFilter, setActiveFilter] = useState('Всі');
+    const [isFormOpen, setIsFormOpen] = useState(false);
+
+    useEffect(() => {
+        localStorage.setItem('phones', JSON.stringify(phones));
+    }, [phones]);
 
     const handleLike = (id) => {
         setPhones(prevPhones =>
@@ -20,8 +29,16 @@ function App() {
         );
     };
 
+    const handleDelete = (id) => {
+        setPhones(prevPhones => prevPhones.filter(phone => phone.id !== id));
+    };
+
     const handleFilterChange = (filter) => {
         setActiveFilter(filter);
+    };
+
+    const handleAddPhone = (newPhone) => {
+        setPhones(prevPhones => [...prevPhones, newPhone]);
     };
 
     const getFilteredPhones = () => {
@@ -39,6 +56,13 @@ function App() {
             <Header
                 likedCount={likedPhones.length}
                 onNavigate={(page) => console.log('Navigate to:', page)}
+                onOpenForm={() => setIsFormOpen(true)}
+            />
+
+            <AddPhoneForm
+                isOpen={isFormOpen}
+                onClose={() => setIsFormOpen(false)}
+                onAddPhone={handleAddPhone}
             />
 
             <main>
@@ -52,18 +76,11 @@ function App() {
                 )}
 
                 <section className="container">
-                    <h2 style={{
-                        marginBottom: '30px',
-                        fontSize: '2rem',
-                        color: 'var(--dark-color)',
-                        textAlign: 'center'
-                    }}>
-                        Флагманські смартфони
-                    </h2>
+                    <h2 className="section-title">Флагманські смартфони</h2>
 
                     {filteredPhones.length === 0 ? (
                         <div className="no-phones-message">
-                            <p>Смартфонів цього бренду поки немає!</p>
+                            <p>Смартфонів цього бренду поки немає в наявності!</p>
                             <button
                                 className="reset-filter-btn"
                                 onClick={() => setActiveFilter('Всі')}
@@ -78,6 +95,7 @@ function App() {
                                     key={phone.id}
                                     phone={phone}
                                     onLike={handleLike}
+                                    onDelete={handleDelete}
                                 />
                             ))}
                         </div>

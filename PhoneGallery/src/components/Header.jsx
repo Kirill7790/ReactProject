@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import '../styles/header.css';
 
-const Header = ({ likedCount = 0, onNavigate }) => {
+const Header = ({ likedCount = 0, onNavigate, onOpenForm }) => {
     const [activePage, setActivePage] = useState('Головна');
 
     const handleNavClick = (page, e) => {
         e.preventDefault();
         setActivePage(page);
-        if (onNavigate)
-        {
+        if (onNavigate) {
             onNavigate(page);
         }
     };
@@ -54,12 +53,18 @@ const Header = ({ likedCount = 0, onNavigate }) => {
                         </ul>
                     </nav>
 
-                    <div className="liked-counter">
-                        <span>❤️</span>
-                        Обране
-                        <span className={likedCount > 0 ? 'has-likes' : ''}>
-              {likedCount}
-            </span>
+                    <div className="header-actions">
+                        <div className="liked-counter">
+                            <span>❤️</span>
+                            Обране
+                            <span className={likedCount > 0 ? 'has-likes' : ''}>
+                {likedCount}
+              </span>
+                        </div>
+
+                        <button className="add-phone-btn" onClick={onOpenForm}>
+                            Додати
+                        </button>
                     </div>
                 </div>
             </div>

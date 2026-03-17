@@ -52,13 +52,12 @@ nav ul li a.active {
 .liked-counter {
     background-color: var(--white-color);
     color: var(--primary-color);
-    padding: 10px 20px;
-    border-radius: var(--border-radius-sm);
-    font-weight: 600;
+    padding: 8px 15px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    box-shadow: var(--box-shadow);
+    gap: 8px;
+    font-weight: 500;
 }
 
 .liked-counter span
@@ -91,4 +90,35 @@ nav ul li a.active {
     {
         transform: scale(1);
     }
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.add-phone-btn {
+    background-color: var(--success-color);
+    color: var(--white-color);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.95rem;
+}
+
+.add-phone-btn:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: var(--box-shadow);
+}
+
+.add-phone-btn span {
+    font-size: 1.1rem;
 }
