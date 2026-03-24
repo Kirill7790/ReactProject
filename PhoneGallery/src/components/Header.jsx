@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import '../styles/header.css';
 
-const Header = ({ likedCount = 0, onNavigate, onOpenForm }) => {
-    const [activePage, setActivePage] = useState('Головна');
+const Header = ({ likedCount = 0, onOpenForm }) => {
+    const navigate = useNavigate();
 
-    const handleNavClick = (page, e) => {
-        e.preventDefault();
-        setActivePage(page);
-        if (onNavigate) {
-            onNavigate(page);
+    const handleAddClick = () => {
+        if (onOpenForm) {
+            onOpenForm();
         }
     };
 
@@ -16,7 +15,7 @@ const Header = ({ likedCount = 0, onNavigate, onOpenForm }) => {
         <header className="header">
             <div className="container">
                 <div className="header-content">
-                    <div className="logo">
+                    <div className="logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
                         <h1>PhoneGallery</h1>
                         <p>Флагманські смартфони</p>
                     </div>
@@ -24,31 +23,19 @@ const Header = ({ likedCount = 0, onNavigate, onOpenForm }) => {
                     <nav>
                         <ul>
                             <li>
-                                <a
-                                    href="#"
-                                    className={activePage === 'Головна' ? 'active' : ''}
-                                    onClick={(e) => handleNavClick('Головна', e)}
-                                >
+                                <NavLink to="/" className={({ isActive }) => isActive ? 'active' : ''}>
                                     Головна
-                                </a>
+                                </NavLink>
                             </li>
                             <li>
-                                <a
-                                    href="#"
-                                    className={activePage === 'Смартфони' ? 'active' : ''}
-                                    onClick={(e) => handleNavClick('Смартфони', e)}
-                                >
+                                <NavLink to="/phones" className={({ isActive }) => isActive ? 'active' : ''}>
                                     Смартфони
-                                </a>
+                                </NavLink>
                             </li>
                             <li>
-                                <a
-                                    href="#"
-                                    className={activePage === 'Бренди' ? 'active' : ''}
-                                    onClick={(e) => handleNavClick('Бренди', e)}
-                                >
-                                    Бренди
-                                </a>
+                                <NavLink to="/about" className={({ isActive }) => isActive ? 'active' : ''}>
+                                    Про нас
+                                </NavLink>
                             </li>
                         </ul>
                     </nav>
@@ -62,7 +49,7 @@ const Header = ({ likedCount = 0, onNavigate, onOpenForm }) => {
               </span>
                         </div>
 
-                        <button className="add-phone-btn" onClick={onOpenForm}>
+                        <button className="add-phone-btn" onClick={handleAddClick}>
                             Додати
                         </button>
                     </div>

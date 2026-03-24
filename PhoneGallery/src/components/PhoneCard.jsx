@@ -25,7 +25,7 @@ const PhoneCard = ({ phone, onLike, onDelete }) => {
                     src={image}
                     alt={name}
                     onError={(e) => {
-                        "Немає зображення";
+                        "";
                     }}
                 />
             </div>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import '../styles/filters.css';
 
-const Filters = ({ activeFilter, onFilterChange }) => {
-    const [searchTerm, setSearchTerm] = useState('');
+const Filters = ({ activeFilter, searchTerm, onFilterChange, onSearch }) => {
+    const [localSearchTerm, setLocalSearchTerm] = useState(searchTerm || '');
 
     const filters = ['Всі', 'Apple', 'Samsung', 'Google', 'OnePlus', 'Xiaomi'];
 
@@ -11,12 +11,17 @@ const Filters = ({ activeFilter, onFilterChange }) => {
     };
 
     const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
+        setLocalSearchTerm(e.target.value);
     };
 
     const handleSearchSubmit = (e) => {
         e.preventDefault();
-        console.log('Searching for:', searchTerm);
+        onSearch(localSearchTerm);
+    };
+
+    const handleClearSearch = () => {
+        setLocalSearchTerm('');
+        onSearch('');
     };
 
     return (
@@ -38,11 +43,16 @@ const Filters = ({ activeFilter, onFilterChange }) => {
                     <form className="search-box" onSubmit={handleSearchSubmit}>
                         <input
                             type="text"
-                            placeholder="Пошук смартфонів..."
-                            value={searchTerm}
+                            placeholder="Пошук за назвою або брендом..."
+                            value={localSearchTerm}
                             onChange={handleSearchChange}
                         />
                         <button type="submit">Пошук</button>
+                        {localSearchTerm && (
+                            <button type="button" className="clear-search" onClick={handleClearSearch}>
+                                ✕
+                            </button>
+                        )}
                     </form>
                 </div>
             </div>

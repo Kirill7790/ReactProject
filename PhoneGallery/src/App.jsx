@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Filters from './components/Filters';
-import PhoneCard from './components/PhoneCard';
-import LikedPhones from './components/LikedPhones';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Layout from './components/Layout';
+import HomePage from './pages/HomePage';
+import PhoneListPage from './pages/PhoneListPage';
+import PhoneDetailsPage from './pages/PhoneDetailsPage';
+import AboutPage from './pages/AboutPage';
+import NotFoundPage from './pages/NotFoundPage';
 import AddPhoneForm from './components/AddPhoneForm';
-import ApiPhones from './components/ApiPhones';
 import { phonesData } from './data/phonesData';
 
 function App() {
     const [phones, setPhones] = useState(() => {
         const savedPhones = localStorage.getItem('phones');
-        if (savedPhones) {
+        if (savedPhones && savedPhones !== 'undefined') {
             try {
-                return JSON.parse(savedPhones);
+                const parsed = JSON.parse(savedPhones);
+                if (parsed && parsed.length > 0) {
+                    return parsed;
+                }
+                return phonesData;
             } catch (error) {
                 console.error('Помилка при читанні даних:', error);
                 return phonesData;
@@ -23,10 +28,13 @@ function App() {
     });
 
     const [activeFilter, setActiveFilter] = useState('Всі');
+    const [searchTerm, setSearchTerm] = useState('');
     const [isFormOpen, setIsFormOpen] = useState(false);
 
     useEffect(() => {
-        localStorage.setItem('phones', JSON.stringify(phones));
+        if (phones && phones.length > 0) {
+            localStorage.setItem('phones', JSON.stringify(phones));
+        }
     }, [phones]);
 
     const handleLike = (id) => {
@@ -47,75 +55,77 @@ function App() {
         setActiveFilter(filter);
     };
 
+    const handleSearch = (term) => {
+        setSearchTerm(term);
+    };
+
     const handleAddPhone = (newPhone) => {
         setPhones(prevPhones => [...prevPhones, newPhone]);
     };
 
     const getFilteredPhones = () => {
-        if (activeFilter === 'Всі') {
-            return phones;
+        let result = phones;
+
+        if (activeFilter !== 'Всі') {
+            result = result.filter(phone => phone.brand === activeFilter);
         }
-        return phones.filter(phone => phone.brand === activeFilter);
+
+        if (searchTerm.trim() !== '') {
+            result = result.filter(phone =>
+                phone.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                phone.brand.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        }
+
+        return result;
     };
 
-    const filteredPhones = getFilteredPhones();
     const likedPhones = phones.filter(phone => phone.isLiked);
+    const filteredPhones = getFilteredPhones();
 
     return (
         <>
-            <Header
-                likedCount={likedPhones.length}
-                onNavigate={(page) => console.log('Navigate to:', page)}
-                onOpenForm={() => setIsFormOpen(true)}
-            />
-
             <AddPhoneForm
                 isOpen={isFormOpen}
                 onClose={() => setIsFormOpen(false)}
                 onAddPhone={handleAddPhone}
             />
 
-            <main>
-                <Filters
-                    activeFilter={activeFilter}
-                    onFilterChange={handleFilterChange}
-                />
-
-                {likedPhones.length > 0 && (
-                    <LikedPhones likedPhones={likedPhones} />
-                )}
-
-                <section className="container">
-                    <h2 className="section-title">Флагманські смартфони</h2>
-
-                    {filteredPhones.length === 0 ? (
-                        <div className="no-phones-message">
-                            <p>Смартфонів цього бренду поки немає в наявності!</p>
-                            <button
-                                className="reset-filter-btn"
-                                onClick={() => setActiveFilter('Всі')}
-                            >
-                                Показати всі телефони
-                            </button>
-                        </div>
-                    ) : (
-                        <div className="phones-grid">
-                            {filteredPhones.map(phone => (
-                                <PhoneCard
-                                    key={phone.id}
-                                    phone={phone}
-                                    onLike={handleLike}
-                                    onDelete={handleDelete}
-                                />
-                            ))}
-                        </div>
-                    )}
-                </section>
-
-                <ApiPhones />
-            </main>
-
-            <Footer />
+            <Routes>
+                <Route path="/" element={
+                    <Layout
+                        likedCount={likedPhones.length}
+                        onOpenForm={() => setIsFormOpen(true)}
+                    />
+                }>
+                    <Route index element={
+                        <HomePage
+                            phones={phones}
+                            filteredPhones={filteredPhones}
+                            activeFilter={activeFilter}
+                            searchTerm={searchTerm}
+                            onFilterChange={handleFilterChange}
+                            onSearch={handleSearch}
+                            onLike={handleLike}
+                            onDelete={handleDelete}
+                            likedPhones={likedPhones}
+                        />
+                    } />
+                    <Route path="phones" element={
+                        <PhoneListPage
+                            phones={phones}
+                            onLike={handleLike}
+                            onDelete={handleDelete}
+                        />
+                    } />
+                    <Route path="phone/:id" element={
+                        <PhoneDetailsPage phones={phones} />
+                    } />
+                    <Route path="about" element={<AboutPage />} />
+                    <Route path="404" element={<NotFoundPage />} />
+                    <Route path="*" element={<Navigate to="/404" replace />} />
+                </Route>
+            </Routes>
         </>
     );
 }
