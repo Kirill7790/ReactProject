@@ -5,6 +5,7 @@ import Filters from './components/Filters';
 import PhoneCard from './components/PhoneCard';
 import LikedPhones from './components/LikedPhones';
 import AddPhoneForm from './components/AddPhoneForm';
+import ApiPhones from './components/ApiPhones';
 import { phonesData } from './data/phonesData';
 
 function App() {
@@ -110,6 +111,8 @@ function App() {
                         </div>
                     )}
                 </section>
+
+                <ApiPhones />
             </main>
 
             <Footer />
