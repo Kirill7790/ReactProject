@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import ThemeToggle from './ThemeToggle';
 import '../styles/header.css';
 
 const Header = ({ likedCount = 0, onOpenForm }) => {
@@ -52,6 +53,8 @@ const Header = ({ likedCount = 0, onOpenForm }) => {
                         <button className="add-phone-btn" onClick={handleAddClick}>
                             Додати
                         </button>
+
+                        <ThemeToggle />
                     </div>
                 </div>
             </div>

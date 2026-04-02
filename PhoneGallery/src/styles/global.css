@@ -19,18 +19,42 @@
 
     --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --transition: all 0.3s ease;
+    --transition-theme: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-theme="dark"] {
+    --primary-color: #6c8cff;
+    --secondary-color: #5a6ee0;
+    --accent-color: #5ad4f5;
+    --success-color: #66bb6a;
+    --danger-color: #ef5350;
+    --warning-color: #ffa726;
+    --dark-color: #f8f9fa;
+    --light-color: #2d2d3d;
+    --gray-color: #a0a0b0;
+    --white-color: #1e1e2f;
+    --black-color: #ffffff;
+    --bg-color: #121212;
+    --card-bg: #1e1e2f;
+    --border-color: #3d3d4d;
+    --text-color: #f8f9fa;
+    --text-secondary: #a0a0b0;
+    --bg-gradient: linear-gradient(135deg, #1e1e2f, #2d2d3d);
+    --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    --box-shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: var(--transition-theme);
 }
 
 body {
     font-family: var(--font-family);
-    background-color: var(--light-color);
-    color: var(--dark-color);
+    background-color: var(--bg-color);
+    color: var(--text-color);
     line-height: 1.6;
     min-height: 100vh;
     display: flex;
@@ -82,7 +106,7 @@ main {
 .no-phones-message {
     text-align: center;
     padding: 60px 20px;
-    background: var(--white-color);
+    background: var(--card-bg);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
     margin: 40px 0;
@@ -90,7 +114,7 @@ main {
 
 .no-phones-message p {
     font-size: 1.3rem;
-    color: var(--gray-color);
+    color: var(--text-secondary);
     margin-bottom: 20px;
 }
 
@@ -132,14 +156,14 @@ main {
     grid-template-columns: 1fr 1fr;
     gap: 40px;
     margin: 40px 0;
-    background: var(--white-color);
+    background: var(--card-bg);
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--box-shadow);
 }
 
 .phone-details-image {
-    background: linear-gradient(45deg, #f3f3f3, #e0e0e0);
+    background: linear-gradient(45deg, var(--light-color), var(--border-color));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -160,7 +184,7 @@ main {
 .phone-details-info h1 {
     font-size: 2rem;
     margin-bottom: 10px;
-    color: var(--dark-color);
+    color: var(--text-color);
 }
 
 .phone-brand {
@@ -178,16 +202,16 @@ main {
     display: flex;
     justify-content: space-between;
     padding: 12px 0;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .spec-item strong {
-    color: var(--dark-color);
+    color: var(--text-color);
     font-weight: 600;
 }
 
 .spec-item span {
-    color: var(--gray-color);
+    color: var(--text-secondary);
 }
 
 .price-item span {
@@ -247,7 +271,7 @@ main {
 .about-content {
     max-width: 800px;
     margin: 0 auto;
-    background: var(--white-color);
+    background: var(--card-bg);
     border-radius: var(--border-radius);
     padding: 40px;
     box-shadow: var(--box-shadow);
@@ -264,7 +288,7 @@ main {
 }
 
 .about-section p {
-    color: var(--gray-color);
+    color: var(--text-secondary);
     line-height: 1.6;
 }
 
@@ -275,15 +299,16 @@ main {
 
 .about-section ul li {
     padding: 8px 0;
-    color: var(--gray-color);
+    color: var(--text-secondary);
 }
 
 .error-container {
     text-align: center;
     padding: 80px 20px;
-    background: #fff3f3;
+    background: var(--card-bg);
     border-radius: var(--border-radius);
     margin: 40px 0;
+    box-shadow: var(--box-shadow);
 }
 
 .error-container .error-icon {
@@ -298,7 +323,7 @@ main {
 }
 
 .error-container p {
-    color: var(--gray-color);
+    color: var(--text-secondary);
     margin-bottom: 20px;
 }
 

@@ -1,0 +1,124 @@
+:root {
+    --transition-theme: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-theme="light"] {
+    --primary-color: #4361ee;
+    --secondary-color: #3f37c9;
+    --accent-color: #4cc9f0;
+    --success-color: #4caf50;
+    --danger-color: #f44336;
+    --warning-color: #ff9800;
+    --dark-color: #1e1e2f;
+    --light-color: #f8f9fa;
+    --gray-color: #6c757d;
+    --white-color: #ffffff;
+    --black-color: #000000;
+    --bg-color: #f8f9fa;
+    --card-bg: #ffffff;
+    --border-color: #e0e0e0;
+    --text-color: #1e1e2f;
+    --text-secondary: #6c757d;
+    --bg-gradient: linear-gradient(135deg, #4361ee, #4cc9f0);
+    --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --box-shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] {
+    --primary-color: #6c8cff;
+    --secondary-color: #5a6ee0;
+    --accent-color: #5ad4f5;
+    --success-color: #66bb6a;
+    --danger-color: #ef5350;
+    --warning-color: #ffa726;
+    --dark-color: #f8f9fa;
+    --light-color: #2d2d3d;
+    --gray-color: #a0a0b0;
+    --white-color: #1e1e2f;
+    --black-color: #ffffff;
+    --bg-color: #121212;
+    --card-bg: #1e1e2f;
+    --border-color: #3d3d4d;
+    --text-color: #f8f9fa;
+    --text-secondary: #a0a0b0;
+    --bg-gradient: linear-gradient(135deg, #1e1e2f, #2d2d3d);
+    --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    --box-shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: var(--transition-theme);
+}
+
+.header {
+    background: var(--bg-gradient);
+    transition: var(--transition-theme);
+}
+
+.phone-card,
+.api-phone-card,
+.add-phone-form,
+.filters-container,
+.liked-mini-card,
+.about-content,
+.phone-details {
+    background: var(--card-bg);
+    transition: var(--transition-theme);
+}
+
+.phone-specs p,
+.api-phone-specs span,
+.spec-item span,
+.error-container p {
+    color: var(--text-secondary);
+}
+
+.phone-name,
+.api-phone-name,
+h1, h2, h3,
+.modal-title,
+.form-title {
+    color: var(--text-color);
+}
+
+.filter-btn {
+    background: var(--light-color);
+    color: var(--text-secondary);
+}
+
+.filter-btn:hover {
+    background: var(--primary-color);
+    color: var(--white-color);
+}
+
+.search-box input,
+.url-input,
+.form-group input,
+.form-group select {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+.search-box input:focus,
+.url-input:focus,
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--primary-color);
+}
+
+.no-phones-message,
+.error-container {
+    background: var(--card-bg);
+}
+
+.footer {
+    background: var(--dark-color);
+    transition: var(--transition-theme);
+}

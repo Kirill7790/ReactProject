@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { ThemeProvider } from './context/ThemeContext';
 import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
 import PhoneListPage from './pages/PhoneListPage';
@@ -8,6 +9,7 @@ import AboutPage from './pages/AboutPage';
 import NotFoundPage from './pages/NotFoundPage';
 import AddPhoneForm from './components/AddPhoneForm';
 import { phonesData } from './data/phonesData';
+import './styles/themes.css';
 
 function App() {
     const [phones, setPhones] = useState(() => {
@@ -84,7 +86,7 @@ function App() {
     const filteredPhones = getFilteredPhones();
 
     return (
-        <>
+        <ThemeProvider>
             <AddPhoneForm
                 isOpen={isFormOpen}
                 onClose={() => setIsFormOpen(false)}
@@ -126,7 +128,7 @@ function App() {
                     <Route path="*" element={<Navigate to="/404" replace />} />
                 </Route>
             </Routes>
-        </>
+        </ThemeProvider>
     );
 }
 
